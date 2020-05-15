@@ -4,7 +4,7 @@ from django.utils import timezone
 
 
 # Create your models here.
-class Post(models.Model):
+class Board(models.Model):
     title = models.CharField(max_length=300)
     text = models.TextField()
     create_date = models.DateTimeField(default=timezone.now)
