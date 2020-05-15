@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} 403.html{% endblock %}
+
+{% block content %}
+    <h1>Permission Denied(403)</h1>
+    <div class="alert alert-danger">
+        <div class="font-weight-bold">{{exception}}</div>
+    </div>
+{% endblock content %}
