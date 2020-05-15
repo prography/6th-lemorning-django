@@ -1,6 +1,11 @@
 # Created by https://www.gitignore.io/api/django
 # Edit at https://www.gitignore.io/?templates=django
 
+.idea
+venv/
+db.sqlite3
+*/migrations
+
 ### Django ###
 *.log
 *.pot
