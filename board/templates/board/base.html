@@ -3,15 +3,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>게시판</title>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="{% static 'css/board.css' %}">
 </head>
 <body>
 <div class="page-header">
+        <h1><a href="{% url 'board:post_list' %}">게시판 예제!</a></h1>
+        <h2 class="land"><a href={% url 'home' %} >Go to Landing Pageeee</a></h2>
         <a href="{% url 'board:post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
-        <h1><a href="/">Django Girls Blog</a></h1>
     </div>
     <div class="content container">
         <div class="row">

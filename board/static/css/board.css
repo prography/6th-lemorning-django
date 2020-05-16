@@ -25,3 +25,40 @@ body {
 .save {
     float: right;
 }
+
+.land {
+    text-align: right;
+    font-family: 'NeoDunggeunmo';
+}
+
+.land a{
+     color: #BDDFE3
+}
+
+.post-form textarea, .post-form input {
+    width: 100%;
+}
+
+.top-menu, .top-menu:hover, .top-menu:visited {
+    color: #ffffff;
+    float: right;
+    font-size: 26pt;
+    margin-right: 20px;
+}
+
+.page-header {
+    background-color: #ff9400;
+    margin-top: 0;
+    padding: 40px 20px 50px 40px;
+}
+
+.page-header h1, .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active {
+    color: #ffffff;
+    font-size: 36pt;
+    text-decoration: none;
+}
+
+.edit_button{
+    float: right;
+    margin : 10px
+}
