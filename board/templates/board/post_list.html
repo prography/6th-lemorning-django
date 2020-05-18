@@ -7,6 +7,7 @@
                 {{ post.published_date }}
             </div>
             <h1><a href="{% url 'board:post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+            <audio controls preload="auto" src={{ post.alarm.url }}></audio>
             <a id="id_uploaded_file" href={{ post.alarm.url }} download>{{ post.alarm.name}}</a>
         </div>
     {% endfor %}
