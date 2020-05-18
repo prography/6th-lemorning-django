@@ -7,7 +7,7 @@
                 {{ post.published_date }}
             </div>
             <h1><a href="{% url 'board:post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
-            <p>{{ post.text|linebreaksbr }}</p>
+            <a id="id_uploaded_file" href={{ post.alarm.url }} download>{{ post.alarm.name}}</a>
         </div>
     {% endfor %}
 {% endblock %}

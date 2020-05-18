@@ -5,7 +5,7 @@ from .forms import BoardForm
 
 # Create your views here.
 def post_list(request):
-    posts = Board.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    posts = Board.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
     return render(request, 'board/post_list.html', {'posts': posts})
 
 def post_detail(request, pk):
@@ -14,7 +14,7 @@ def post_detail(request, pk):
 
 def post_new(request):
     if request.method == "POST":
-        form = BoardForm(request.POST)
+        form = BoardForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
             post.published_date = timezone.now()
@@ -27,7 +27,7 @@ def post_new(request):
 def post_edit(request, pk):
     post = get_object_or_404(Board, pk=pk)
     if request.method == "POST":
-        form = BoardForm(request.POST, instance=post)
+        form = BoardForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
             post = form.save(commit=False)
             post.published_date = timezone.now()

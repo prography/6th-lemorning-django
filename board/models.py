@@ -6,7 +6,7 @@ from django.utils import timezone
 # Create your models here.
 class Board(models.Model):
     title = models.CharField(max_length=300)
-    text = models.TextField()
+    alarm = models.FileField(blank=True, upload_to="alarm/%Y/%m/%d")
     create_date = models.DateTimeField(default=timezone.now)
     published_date = models.DateTimeField(blank=True, null=True)
 

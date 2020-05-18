@@ -11,6 +11,6 @@
            <a class="btn btn-default" href="{% url 'board:post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
        </div>
         <h1>{{ post.title }}</h1>
-        <p>{{ post.text|linebreaksbr }}</p>
+        <a id="id_uploaded_file" href={{ post.alarm.url }} download>{{ post.alarm.name}}</a>
     </div>
 {% endblock %}
