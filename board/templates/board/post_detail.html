@@ -1,0 +1,17 @@
+{% extends 'board/base.html' %}
+
+{% block content %}
+    <div class="post">
+        {% if post.published_date %}
+            <div class="date">
+                {{ post.published_date }}
+            </div>
+        {% endif %}
+       <div class="edit_button" >
+           <a class="btn btn-default" href="{% url 'board:post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+       </div>
+        <h1>{{ post.title }}</h1>
+        <audio controls preload="auto" src={{ post.alarm.url }}></audio>
+        <a id="id_uploaded_file" href={{ post.alarm.url }} download>{{ post.alarm.name}}</a>
+    </div>
+{% endblock %}

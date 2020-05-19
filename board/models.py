@@ -1,12 +1,13 @@
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
+from django.core.validators import FileExtensionValidator
 
 
 # Create your models here.
-class Post(models.Model):
+class Board(models.Model):
     title = models.CharField(max_length=300)
-    text = models.TextField()
+    alarm = models.FileField(blank=True, upload_to="alarm/%Y/%m/%d", validators=[FileExtensionValidator(allowed_extensions=['mp3'])])
     create_date = models.DateTimeField(default=timezone.now)
     published_date = models.DateTimeField(blank=True, null=True)
 
