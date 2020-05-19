@@ -9,6 +9,6 @@
 
 ## Authors👨
 
-- [유동관]()
-- [이창섭]()
+- [유동관](https://github.com/dkyou7)
+- [이창섭](https://github.com/ventulus95)
 
