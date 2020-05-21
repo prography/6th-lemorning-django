@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Category Page{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <img src="{{product.image.url}}" width="100%">
+        </div>
+        <div class="col">
+            <h1 class="display-6">{{product.name}}</h1>
+            <p><span class="badge badge-secondary">Price</span>{{product.price}}</p>
+            <h5><span class="badge badge-secondary">Description</span>{{product.description|linebreaks}}</h5>
+
+        <div class="post">
+            <h1>{{ post.title }}</h1>
+            <audio controls preload="auto" src={{ product.alarm.url }}></audio>
+            <!--<a id="id_uploaded_file" href={{ product.alarm.url }} download>{{ product.alarm.name}}</a>-->
+            <a id="id_uploaded_file" href={{ product.alarm.url }} download></a>
+            <input type="submit" class="btn btn-primary btn-sm" value="Add to Cart">
+        </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
