@@ -18,7 +18,7 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto my-2 my-lg-0">
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'home' %}">Home</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'board:post_list' %}">게시판</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'shop:product_all' %}">상품둘러보기</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#">Admin</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'board:post_list' %}">게시판</a></li>
                         {% if user.is_active %}
@@ -172,7 +172,7 @@
         <section class="page-section bg-dark text-white">
             <div class="container text-center">
                 <h2 class="mb-4">Free Download at Le Morning!</h2>
-                <a class="btn btn-light btn-xl" href="https://startbootstrap.com/themes/creative/">Start Now!</a>
+                <a class="btn btn-light btn-xl" href="#">Start Now!</a>
             </div>
         </section>
         <!-- Contact section-->
@@ -209,6 +209,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
         <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
+        <script src="{% static 'js/Scripts.js' %}"></script>
     </div>
 {% endblock %}
