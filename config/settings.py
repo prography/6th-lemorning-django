@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'board',
     'main',
+    'accounts',
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
