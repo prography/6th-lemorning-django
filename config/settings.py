@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'shop',
     'cart',
     'order',
+    'accounts',
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
