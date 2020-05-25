@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import auth
-from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth import authenticate
 from .forms import UserCreationForm, AccountForm
-
 
 # Create your views here.
 def signup(request):
@@ -16,11 +15,10 @@ def signup(request):
             account.user = user
 
             account.save()
-
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password1')
-            user = authenticate(username= username, password=password)
-            auth_login(request, user)
+            username = user_form.cleaned_data.get('username')
+            password = user_form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=password)
+            auth.login(request, user)
             return redirect('home')
 
     else:

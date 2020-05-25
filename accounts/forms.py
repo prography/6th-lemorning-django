@@ -4,19 +4,15 @@ from django.contrib.auth.forms import UserCreationForm
 from django.forms import ModelForm
 from .models import Account
 
-Sex_Choices = [
-    ('male', '남성'),
-    ('Female', '여')
-]
-
 class UserCreationForm(UserCreationForm):
+    username = forms.CharField(max_length=100, label="ID")
     email = forms.EmailField(required=True)
     first_name = forms.CharField(max_length=30)
     last_name = forms.CharField(max_length=100)
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'first_name', 'last_name', 'password1', 'password2')
+        fields = ('username', 'password1', 'password2', 'email', 'first_name', 'last_name', )
 
     def save(self, commit= True):
         user = super().save(commit=False)
@@ -29,8 +25,13 @@ class UserCreationForm(UserCreationForm):
         return user
 
 class AccountForm(ModelForm):
+    Sex_Choices = (
+        ('male', '남성'),
+        ('Female', '여성')
+    )
+    sex = forms.ChoiceField(widget=forms.RadioSelect(), choices=Sex_Choices)
+
     class Meta:
         model = Account
-        sex = forms.CharField(label='성별', widget=forms.RadioSelect(choices=Sex_Choices))
-        fields = ['name', 'age', 'wallet', 'sex']
+        fields = ['age','sex']
 
