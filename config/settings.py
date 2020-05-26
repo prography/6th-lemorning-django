@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'cart',
     'order',
     'accounts',
+    'rest_framework',
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -108,3 +109,8 @@ LOGIN_REDIRECT_URL = '/'    # 추가
 IAMPORT_KEY = '2739818036058672'
 
 IAMPORT_SECRET = 'TlApMKbYxvYqDRvXuwyibgyMrrQaRjmKEWaqHlpeQoFufbrKI02ThBFJ2wTTPfEucPVUbl82JOwZ0YJI'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
