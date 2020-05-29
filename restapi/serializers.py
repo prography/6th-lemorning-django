@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User, Group
 from accounts.models import Account
 from rest_framework import serializers
+from board.models import Board
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -18,3 +19,8 @@ class AccountSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Account
         fields = ['url', 'user', 'sex', 'wallet']
+
+class BoardSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Board
+        fields = ['url', 'title', 'alarm', 'create_date',]

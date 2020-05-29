@@ -1,8 +1,9 @@
 from django.contrib.auth.models import User, Group
 from accounts.models import Account
+from board.models import Board
 from rest_framework import viewsets
 from rest_framework import permissions
-from restapi.serializers import UserSerializer, GroupSerializer,AccountSerializer
+from restapi.serializers import UserSerializer, GroupSerializer,AccountSerializer, BoardSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -25,4 +26,9 @@ class GroupViewSet(viewsets.ModelViewSet):
 class AccountViewSet(viewsets.ModelViewSet):
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class BoardViewSet(viewsets.ModelViewSet):
+    queryset = Board.objects.all()
+    serializer_class = BoardSerializer
     permission_classes = [permissions.IsAuthenticated]
