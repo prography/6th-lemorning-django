@@ -2,6 +2,7 @@ from django.contrib.auth.models import User, Group
 from accounts.models import Account
 from rest_framework import serializers
 from board.models import Board
+from shop.models import Product, Category
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -23,4 +24,20 @@ class AccountSerializer(serializers.HyperlinkedModelSerializer):
 class BoardSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Board
-        fields = ['url', 'title', 'alarm', 'create_date',]
+        fields = ['id', 'title', 'alarm', 'create_date',]
+
+class ProductSerializer(serializers.HyperlinkedModelSerializer):
+    category_no = serializers.SerializerMethodField()
+    category_name = serializers.SlugField(source='category')
+
+    def get_category_no(self, obj):
+        return obj.category.id
+
+    class Meta:
+        model = Product
+        fields = ['id','name','category_no', 'category_name','image',]
+
+class CategorySerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Category
+        fields = ['name']
