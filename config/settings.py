@@ -116,6 +116,6 @@ REST_FRAMEWORK = {
     # 'PAGE_SIZE': 10
 }
 
-ALLOWED_HOSTS = ['django-env.eba-ccczymk4.us-west-2.elasticbeanstalk.com']
+ALLOWED_HOSTS = ['6th-lemorning-django-dev.ap-northeast-2.elasticbeanstalk.com']
 
 TAGGIT_CASE_INSENSITIVE = True
