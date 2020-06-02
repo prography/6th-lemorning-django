@@ -1,12 +1,8 @@
-from django.contrib.auth.models import User, Group
+from rest_framework import permissions
+from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from accounts.models import Account
-from board.models import Board
-from shop.models import Product, Category
-from rest_framework import viewsets, status
-from rest_framework import permissions
 from restapi.serializers import *
 
 

@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'order',
     'accounts',
     'rest_framework',
+    'taggit',
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -115,4 +116,6 @@ REST_FRAMEWORK = {
     # 'PAGE_SIZE': 10
 }
 
-ALLOWED_HOSTS = ['172.16.100.100']
+ALLOWED_HOSTS = ['192.168.0.213']
+
+TAGGIT_CASE_INSENSITIVE = True

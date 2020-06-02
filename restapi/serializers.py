@@ -3,7 +3,7 @@ from accounts.models import Account
 from rest_framework import serializers
 from board.models import Board
 from shop.models import Product, Category
-
+from taggit_serializer.serializers import TaggitSerializer,TagListSerializerField
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -29,7 +29,9 @@ class BoardSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['id', 'title', 'alarm', 'create_date', ]
 
 
-class ProductSerializer(serializers.HyperlinkedModelSerializer):
+class ProductSerializer(TaggitSerializer, serializers.HyperlinkedModelSerializer):
+    tags = TagListSerializerField()
+
     category_no = serializers.SerializerMethodField()
     category_name = serializers.SlugField(source='category')
 
@@ -38,7 +40,7 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Product
-        fields = ['id', 'name', 'category_no', 'category_name', 'image', 'alarm', ]
+        fields = ['id', 'name', 'category_no', 'category_name', 'image', 'alarm', 'tags' ]
 
 
 class ProductsSerializer(serializers.HyperlinkedModelSerializer):
@@ -50,7 +52,7 @@ class ProductsSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Product
-        fields = ['id', 'name','category', 'category_no', 'category_name', 'image', 'alarm']
+        fields = ['id', 'name','category', 'category_no', 'category_name', 'image', 'alarm', ]
         # depth = 2
 
 class CategorySerializer(serializers.HyperlinkedModelSerializer):

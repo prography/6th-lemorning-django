@@ -1,6 +1,8 @@
 from django.db import models
 from django.core.validators import FileExtensionValidator
 from django.urls import reverse
+from taggit.managers import TaggableManager
+
 
 # Create your models here.
 class Category(models.Model):
@@ -19,6 +21,7 @@ class Category(models.Model):
 
     def get_absolute_url(self):
         return reverse('shop:product_in_category',args=[self.slug])
+
 
 class Product(models.Model):
     category = models.ForeignKey(Category,on_delete=models.SET_NULL, null=True, related_name='products')
@@ -39,6 +42,8 @@ class Product(models.Model):
 
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
+    tags = TaggableManager()
 
     class Meta:
         ordering = ['-created']
