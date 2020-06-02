@@ -4,10 +4,10 @@ from rest_framework.response import Response
 
 from accounts.models import Account
 from board.models import Board
-from shop.models import Product,Category
-from rest_framework import viewsets
+from shop.models import Product, Category
+from rest_framework import viewsets, status
 from rest_framework import permissions
-from restapi.serializers import UserSerializer, GroupSerializer,AccountSerializer, BoardSerializer, ProductSerializer,CategorySerializer
+from restapi.serializers import *
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -21,15 +21,18 @@ class GroupViewSet(viewsets.ModelViewSet):
     serializer_class = GroupSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+
 class AccountViewSet(viewsets.ModelViewSet):
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+
 class BoardViewSet(viewsets.ModelViewSet):
     queryset = Board.objects.all()
     serializer_class = BoardSerializer
     # permission_classes = [permissions.IsAuthenticated]
+
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
@@ -41,11 +44,22 @@ class ProductViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(qs, many=True)
         return Response(serializer.data)
 
-    @action(detail=False, methods=['get'],)
+    @action(detail=False, methods=['get'], )
     def weekly_list(self, request):
         qs = self.queryset.order_by('-created')
         serializer = self.get_serializer(qs, many=True)
-        return Response(serializer.data)
+        response = {
+            'status': status.HTTP_200_OK,
+            'message': "Category List",
+            'response': serializer.data
+        }
+        return Response(response)
+        # return Response(serializer.data)
+
+class ProductsViewSet(viewsets.ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductsSerializer
+
 
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
