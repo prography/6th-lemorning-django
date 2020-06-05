@@ -1,6 +1,9 @@
 from django.db import models
 from django.core.validators import FileExtensionValidator
 from django.urls import reverse
+from taggit.managers import TaggableManager
+from config.storage_backends import PrivateMediaStorage
+
 
 # Create your models here.
 class Category(models.Model):
@@ -20,14 +23,15 @@ class Category(models.Model):
     def get_absolute_url(self):
         return reverse('shop:product_in_category',args=[self.slug])
 
+
 class Product(models.Model):
     category = models.ForeignKey(Category,on_delete=models.SET_NULL, null=True, related_name='products')
     name = models.CharField(max_length=200,db_index=True)
     slug = models.SlugField(max_length=200,db_index=True, unique=True, allow_unicode=True)
 
-    image = models.ImageField(upload_to='product/%Y/%m/%d',blank=True)
+    image = models.ImageField(upload_to='product/%Y/%m/%d',blank=True, storage=PrivateMediaStorage())
     alarm = models.FileField(blank=True, upload_to="alarm/%Y/%m/%d",
-                             validators=[FileExtensionValidator(allowed_extensions=['mp3'])])
+                             validators=[FileExtensionValidator(allowed_extensions=['mp3'])],storage=PrivateMediaStorage())
     description = models.TextField(blank=True)
     meta_description = models.TextField(blank=True)
 
@@ -39,6 +43,8 @@ class Product(models.Model):
 
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
+    tags = TaggableManager()
 
     class Meta:
         ordering = ['-created']

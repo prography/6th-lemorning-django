@@ -1,0 +1,20 @@
+{% extends 'home.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1> login</h1>
+        <form method="post" action="{% url 'login' %}">
+            {%  csrf_token %}
+            <br>
+            ID:
+            <input name="username" type="text">
+            <br>
+            PW:
+            <br>
+            <input name="password" type="password">
+            <br>
+            <input type="submit" class="btn btn-primary" value="로그인">
+        </form>
+    </div>
+
+{% endblock %}

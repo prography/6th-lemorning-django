@@ -17,12 +17,27 @@ from django.contrib import admin
 from django.urls import path,include
 from django.conf.urls.static import static
 from django.conf import settings
+from rest_framework import routers
+from restapi import views
 
 from config.views import HomeView
 
+router = routers.DefaultRouter()
+router.register(r'users', views.UserViewSet)
+router.register(r'groups', views.GroupViewSet)
+router.register('account', views.AccountViewSet)
+router.register('board', views.BoardViewSet)
+router.register('shop', views.ProductViewSet)
+# router.register('shops', views.ProductsViewSet)
+router.register('category', views.CategoryViewSet)
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('board/',include('board.urls')),
-    path('shop/',include('shop.urls')),
-    path('',HomeView.as_view(),name='home'),
-] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+    path('board/', include('board.urls')),
+    path('shop/', include('shop.urls')),
+    path('',HomeView.as_view(), name='home'),
+    path('account/', include('accounts.urls')),
+    # path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('api/', include(router.urls)),
+]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
