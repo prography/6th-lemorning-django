@@ -31,6 +31,13 @@ INSTALLED_APPS = [
     'accounts',
     'rest_framework',
     'taggit',
+    #### social login 시작 ####
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.naver'
+    #### social login 끝 ####
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -113,3 +120,13 @@ REST_FRAMEWORK = {
 ALLOWED_HOSTS = ['6th-lemorning-django-dev3.ap-northeast-2.elasticbeanstalk.com', '*']
 
 TAGGIT_CASE_INSENSITIVE = True
+
+
+#### 소셜 로그인 관련 시작 ####
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+SITE_ID = 1
+#### 소셜 로그인 관련 끝 ####

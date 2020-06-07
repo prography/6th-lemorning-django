@@ -39,5 +39,8 @@ urlpatterns = [
     path('account/', include('accounts.urls')),
     # path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('api/', include(router.urls)),
+    #### social login 시작 ####
+    path('accounts/',include('allauth.urls'))
+    #### social login 끝 ####
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

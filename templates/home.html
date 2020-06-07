@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 {% endblock %}
 
+{% load socialaccount %}
+{% providers_media_js %}
+
 {% block content %}
     <div id="page-top">
         <!-- Navigation-->
@@ -21,6 +24,11 @@
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'shop:product_all' %}">상품둘러보기</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'admin:index' %}">Admin</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'board:post_list' %}">게시판</a></li>
+                        {% if user.is_authenticated %}
+                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'account_logout' %}">Logout</a></li>
+                        {% else %}
+                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% provider_login_url 'naver' %}">login</a></li>
+                        {% endif %}
                         {% if user.is_active %}
                             <li class="nav-item">
                                 <a href="#" class="nav-link js-scroll-trigger">
