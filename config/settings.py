@@ -15,33 +15,33 @@ from django.core.exceptions import ImproperlyConfigured
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Env for dev / deploy
-def get_env(setting, envs):
-    try:
-        return envs[setting]
-    except KeyError:
-        error_msg = "You SHOULD set {} environ".format(setting)
-        raise ImproperlyConfigured(error_msg)
-
-DEV_ENVS = os.path.join(BASE_DIR, "envs_dev.json")
-DEPLOY_ENVS = os.path.join(BASE_DIR, "envs.json")
-
-if os.path.exists(DEV_ENVS): # Develop Env
-    env_file = open(DEV_ENVS)
-elif os.path.exists(DEPLOY_ENVS): # Deploy Env
-    env_file = open(DEPLOY_ENVS)
-else:
-    env_file = None
-
-if env_file is None: # System environ
-    try:
-        GOOGLE_KEY = os.environ['GOOGLE_KEY']
-        GOOGLE_SECRET = os.environ['GOOGLE_SECRET']
-    except KeyError as error_msg:
-        raise ImproperlyConfigured(error_msg)
-else: # JSON env
-    envs = json.loads(env_file.read())
-    GOOGLE_KEY = get_env('GOOGLE_KEY', envs)
-    GOOGLE_SECRET = get_env('GOOGLE_SECRET', envs)
+# def get_env(setting, envs):
+#     try:
+#         return envs[setting]
+#     except KeyError:
+#         error_msg = "You SHOULD set {} environ".format(setting)
+#         raise ImproperlyConfigured(error_msg)
+#
+# DEV_ENVS = os.path.join(BASE_DIR, "envs_dev.json")
+# DEPLOY_ENVS = os.path.join(BASE_DIR, "envs.json")
+#
+# if os.path.exists(DEV_ENVS): # Develop Env
+#     env_file = open(DEV_ENVS)
+# elif os.path.exists(DEPLOY_ENVS): # Deploy Env
+#     env_file = open(DEPLOY_ENVS)
+# else:
+#     env_file = None
+#
+# if env_file is None: # System environ
+#     try:
+#         GOOGLE_KEY = os.environ['GOOGLE_KEY']
+#         GOOGLE_SECRET = os.environ['GOOGLE_SECRET']
+#     except KeyError as error_msg:
+#         raise ImproperlyConfigured(error_msg)
+# else: # JSON env
+#     envs = json.loads(env_file.read())
+#     GOOGLE_KEY = get_env('GOOGLE_KEY', envs)
+#     GOOGLE_SECRET = get_env('GOOGLE_SECRET', envs)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -65,10 +65,16 @@ INSTALLED_APPS = [
     'taggit',
     #### social login 시작 ####
     'django.contrib.sites',
+
+    # allauth
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+
+    # provider
     'allauth.socialaccount.providers.naver',
+    'allauth.socialaccount.providers.google',
+
     'social_django',
     'rest_framework',
     'rest_framework.authtoken',
@@ -166,7 +172,6 @@ ALLOWED_HOSTS = ['6th-lemorning-django-dev3.ap-northeast-2.elasticbeanstalk.com'
 
 TAGGIT_CASE_INSENSITIVE = True
 
-
 #### 소셜 로그인 관련 시작 ####
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',    # Django 기본 유저모델
@@ -178,9 +183,9 @@ SOCIAL_AUTH_URL_NAMESPACE = 'social'
 SITE_ID = 1
 
 # SocialLogin: Google
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = GOOGLE_KEY
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = GOOGLE_SECRET
-SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['email']
+# SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = GOOGLE_KEY
+# SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = GOOGLE_SECRET
+# SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['email']
 REST_USE_JWT = True
 ACCOUNT_LOGOUT_ON_GET = True
 #### 소셜 로그인 관련 끝 ####

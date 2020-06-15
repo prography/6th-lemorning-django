@@ -24,29 +24,17 @@
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'home' %}">Home</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'shop:product_all' %}">상품둘러보기</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'admin:index' %}">Admin</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'board:post_list' %}">게시판</a></li>
-                        <a href="{% url 'social:begin' 'google-oauth2' %}"><button class="btn btn-danger" style="width: 40%">G+ Login</button></a>
+
                         {% if user.is_authenticated %}
-                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'account_logout' %}">Logout</a></li>
-                        {% else %}
-                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'account_login' %}">naverlogin</a></li>
-                        {% endif %}
-                        {% if user.is_active %}
                             <li class="nav-item">
                                 <a href="#" class="nav-link js-scroll-trigger">
                                     <i class="fas fa-user"></i>&ensp;{{ user.username }}님, 안녕하세요!
                                 </a>
                             </li>
-                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'logout' %}">Logout</a></li>
-                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#">Change Password</a></li>
+                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'account_logout' %}">Logout</a></li>
                         {% else %}
-                            <li class="nav-item">
-                                <a href="#" class="nav-link js-scroll-trigger">
-                                    <i class="fas fa-user"></i>&ensp;&ensp;
-                                </a>
-                            </li>
-                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'login' %}">Login</a></li>
-                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'signup' %}">Register</a></li>
+                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% provider_login_url 'google' %}">G+ Login</a></li>
+                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% provider_login_url 'naver' %}">N Login</a></li>
                         {% endif %}
                     </ul>
                 </div>
