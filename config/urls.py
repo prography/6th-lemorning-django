@@ -41,6 +41,5 @@ urlpatterns = [
     path('rest-auth/', include('rest_auth.urls')), # Login, Logout 관련 기능
     path('rest-auth/registration/', include('rest_auth.registration.urls')),  # SignUp 관련 기능
     #### social login 끝 ####
-    path('auth/', include('rest_framework_social_oauth2.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
