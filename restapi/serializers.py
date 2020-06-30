@@ -5,11 +5,6 @@ from board.models import Board
 from shop.models import Product, Category
 from taggit_serializer.serializers import TaggitSerializer,TagListSerializerField
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = User
-        fields = ['url', 'username', 'last_name', 'first_name', 'email', 'groups']
-
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -17,10 +12,18 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['url', 'name']
 
 
-class AccountSerializer(serializers.HyperlinkedModelSerializer):
+class AccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
-        fields = ['url', 'user', 'sex', 'wallet']
+        fields = ['sex', 'wallet']
+
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    account = AccountSerializer()
+
+    class Meta:
+        model = User
+        fields = ['url', 'username', 'last_name', 'first_name', 'email', 'groups', 'account']
+
 
 
 class BoardSerializer(serializers.HyperlinkedModelSerializer):
