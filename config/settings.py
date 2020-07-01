@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 'users',
     'main',
     'shop',
     'cart',
@@ -94,7 +95,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,"templates")],
+        'DIRS': [os.path.join(BASE_DIR, "templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -108,6 +109,7 @@ TEMPLATES = [
 ]
 WSGI_APPLICATION = 'config.wsgi.application'
 
+# AUTH_USER_MODEL = 'users.CustomUser'
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -140,15 +142,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 STATIC_URL = '/static/'
-STATICFILES_DIRS=[(os.path.join(BASE_DIR,'static'))]
+STATICFILES_DIRS = [(os.path.join(BASE_DIR, 'static'))]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
 
 MEDIA_URL = '/media/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-LOGIN_REDIRECT_URL = '/'    # 추가
+LOGIN_REDIRECT_URL = '/'  # 추가
 
 IAMPORT_KEY = '2739818036058672'
 
@@ -161,9 +162,10 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+        # 'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.BasicAuthentication',
     ),
 }
 
@@ -173,7 +175,7 @@ TAGGIT_CASE_INSENSITIVE = True
 
 #### 소셜 로그인 관련 시작 ####
 AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',    # Django 기본 유저모델
+    'django.contrib.auth.backends.ModelBackend',  # Django 기본 유저모델
     'allauth.account.auth_backends.AuthenticationBackend',
     'social_core.backends.google.GoogleOAuth2',  # Google
     'social_core.backends.facebook.FacebookOAuth2',  # Facebook
@@ -182,9 +184,20 @@ SOCIAL_AUTH_URL_NAMESPACE = 'social'
 SITE_ID = 1
 
 # SocialLogin: Google
-# SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = GOOGLE_KEY
-# SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = GOOGLE_SECRET
+# SOCIAL_AUTH_GOOGLE_OAUTH2_KEY =
+# SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET =
 # SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['email']
-REST_USE_JWT = True
+# REST_USE_JWT = True
 ACCOUNT_LOGOUT_ON_GET = True
 #### 소셜 로그인 관련 끝 ####
+
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'REGISTER_SERIALIZER': "accounts.serializer.RegisterSerializer"
+}
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+ACCOUNT_ADAPTER = "accounts.adapter.CustomAccountAdapter"
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = "email"
