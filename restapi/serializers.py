@@ -1,14 +1,8 @@
 from django.contrib.auth.models import User, Group
 from accounts.models import Account
 from rest_framework import serializers
-from board.models import Board
 from shop.models import Product, Category
 from taggit_serializer.serializers import TaggitSerializer,TagListSerializerField
-
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = User
-        fields = ['url', 'username', 'last_name', 'first_name', 'email', 'groups']
 
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
@@ -17,16 +11,17 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['url', 'name']
 
 
-class AccountSerializer(serializers.HyperlinkedModelSerializer):
+class AccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
-        fields = ['url', 'user', 'sex', 'wallet']
+        fields = ['sex', 'wallet']
 
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    account = AccountSerializer()
 
-class BoardSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = Board
-        fields = ['id', 'title', 'alarm', 'create_date', ]
+        model = User
+        fields = ['url', 'username', 'last_name', 'first_name', 'email', 'groups', 'account']
 
 
 class ProductSerializer(TaggitSerializer, serializers.HyperlinkedModelSerializer):
