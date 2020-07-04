@@ -27,6 +27,14 @@ class AccountViewSet(viewsets.ModelViewSet):
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
     @action(detail=True, methods=['get'], )
     def recommand_category(self, request, pk):
@@ -45,11 +53,6 @@ class ProductViewSet(viewsets.ModelViewSet):
         }
         return Response(response)
         # return Response(serializer.data)
-
-class ProductsViewSet(viewsets.ModelViewSet):
-    queryset = Product.objects.all()
-    serializer_class = ProductsSerializer
-
 
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
