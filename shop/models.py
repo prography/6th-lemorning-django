@@ -26,7 +26,7 @@ class Category(models.Model):
 
 
 class Product(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     category = models.ForeignKey(Category,on_delete=models.SET_NULL, null=True, related_name='products')
     name = models.CharField(max_length=200,db_index=True)
     slug = models.SlugField(max_length=200,db_index=True, unique=True, allow_unicode=True)
