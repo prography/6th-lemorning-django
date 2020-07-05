@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.core.validators import FileExtensionValidator
 from django.urls import reverse
@@ -25,6 +26,7 @@ class Category(models.Model):
 
 
 class Product(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ForeignKey(Category,on_delete=models.SET_NULL, null=True, related_name='products')
     name = models.CharField(max_length=200,db_index=True)
     slug = models.SlugField(max_length=200,db_index=True, unique=True, allow_unicode=True)
@@ -44,7 +46,7 @@ class Product(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
-    tags = TaggableManager()
+    tags = TaggableManager(blank=True)
 
     class Meta:
         ordering = ['-created']
