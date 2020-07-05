@@ -28,6 +28,7 @@ class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
+
     @action(detail=True, methods=['get'], )
     def recommand_category(self, request, pk):
         qs = self.queryset.filter(category_id=pk)
@@ -45,11 +46,6 @@ class ProductViewSet(viewsets.ModelViewSet):
         }
         return Response(response)
         # return Response(serializer.data)
-
-class ProductsViewSet(viewsets.ModelViewSet):
-    queryset = Product.objects.all()
-    serializer_class = ProductsSerializer
-
 
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
