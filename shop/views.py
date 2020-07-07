@@ -28,7 +28,6 @@ class productList(generics.CreateAPIView):
 
     def create(self, request, *args, **kwargs):
         parser_classes = (MultiPartParser,)
-
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             serializer.save(user=request.user)
