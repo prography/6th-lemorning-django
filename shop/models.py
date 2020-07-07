@@ -4,6 +4,7 @@ from django.core.validators import FileExtensionValidator
 from django.urls import reverse
 from taggit.managers import TaggableManager
 from config.storage_backends import PrivateMediaStorage
+from django.utils.text import slugify
 
 
 # Create your models here.
@@ -57,3 +58,7 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return reverse('shop:product_detail',args=[self.id,self.slug])
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name, allow_unicode=True)
+        super(Product, self).save(*args, **kwargs)
