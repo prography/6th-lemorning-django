@@ -28,9 +28,9 @@ class productList(generics.CreateAPIView):
 
     def create(self, request, *args, **kwargs):
         parser_classes = (MultiPartParser,)
-
+        user = User.objects.get(id=request.user.user_id)
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
-            serializer.save(user=request.user)
+            serializer.save(user=user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
