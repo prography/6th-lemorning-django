@@ -34,9 +34,8 @@ class Product(models.Model):
     name = models.CharField(max_length=200,db_index=True)
     slug = models.SlugField(max_length=200,db_index=True, unique=True, allow_unicode=True)
 
-    image = models.ImageField(upload_to='product/%Y/%m/%d',blank=True,default="default-alarm.jpg",storage=PrivateMediaStorage())
-    alarm = models.FileField(blank=True, upload_to="alarm/%Y/%m/%d",
-                             validators=[FileExtensionValidator(allowed_extensions=['mp3'])],storage=PrivateMediaStorage())
+    image = models.ImageField(upload_to='product/%Y/%m/%d',blank=True,default="default_alarm_pic.jpg",storage=PrivateMediaStorage())
+    alarm = models.FileField(blank=True, upload_to="alarm/%Y/%m/%d",storage=PrivateMediaStorage())
     description = models.TextField(blank=True)
     meta_description = models.TextField(blank=True)
 

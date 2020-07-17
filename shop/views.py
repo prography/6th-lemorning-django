@@ -7,7 +7,8 @@ from rest_framework.parsers import MultiPartParser
 
 from restapi.serializers import *
 from .models import *
-from deep.model import DeepModel
+from .apps import ShopConfig
+import io
 
 
 def product_in_category(request, category_slug=None):
@@ -36,11 +37,13 @@ class productList(generics.CreateAPIView):
     def create(self, request, *args, **kwargs):
         parser_classes = (MultiPartParser,)
         serializer = self.get_serializer(data=request.data)
-        model = DeepModel()
-        path_audio = request.FILES['alarm']['file']
-        tags = model.extract_info(path_audio, mode='tag', topN=5)
-        print(tags)
+        data = request.FILES['alarm']
+        k = io.BytesIO(data.file.read())
+        feat, tag = ShopConfig.model.extract_info(k)
+        taglist = tag.tolist()
         if serializer.is_valid():
+            serializer.validated_data['tags'] = taglist
+            print(serializer.validated_data['tags'])
             serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

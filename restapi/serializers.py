@@ -27,7 +27,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
 class ProductSerializer(TaggitSerializer, serializers.HyperlinkedModelSerializer):
 
-    # tags = TagListSerializerField()
+    tags = TagListSerializerField()
     #
     # category_no = serializers.SerializerMethodField()
     # category_name = serializers.SlugField(source='category')
@@ -39,7 +39,7 @@ class ProductSerializer(TaggitSerializer, serializers.HyperlinkedModelSerializer
     class Meta:
         model = Product
         # fields = ['id', 'name', 'category_no', 'category_name', 'image', 'alarm', 'tags' ]
-        fields = ['id', 'name', 'image', 'alarm', 'price', 'stock'  ]
+        fields = ['id', 'name', 'image', 'alarm', 'price', 'stock', 'tags']
 
 
 class WelcomeProductSerializer(TaggitSerializer, serializers.HyperlinkedModelSerializer):
