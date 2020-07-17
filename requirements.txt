@@ -94,7 +94,6 @@ scipy==1.4.1
 semantic-version==2.5.0
 sentry-sdk==0.14.4
 six==1.11.0
-sndfile==0.2.0
 social-auth-app-django==3.4.0
 social-auth-core==3.3.3
 SoundFile==0.8.0
