@@ -1,9 +1,12 @@
 from django.contrib.auth.models import User
-from django.db import models
+from django.db import models, IntegrityError
 from django.core.validators import FileExtensionValidator
 from django.urls import reverse
+from rest_framework import serializers
 from taggit.managers import TaggableManager
 from config.storage_backends import PrivateMediaStorage
+from django.utils.text import slugify
+from django.utils import timezone
 
 
 # Create your models here.
@@ -31,9 +34,8 @@ class Product(models.Model):
     name = models.CharField(max_length=200,db_index=True)
     slug = models.SlugField(max_length=200,db_index=True, unique=True, allow_unicode=True)
 
-    image = models.ImageField(upload_to='product/%Y/%m/%d',blank=True, storage=PrivateMediaStorage())
-    alarm = models.FileField(blank=True, upload_to="alarm/%Y/%m/%d",
-                             validators=[FileExtensionValidator(allowed_extensions=['mp3'])],storage=PrivateMediaStorage())
+    image = models.ImageField(upload_to='product/%Y/%m/%d',blank=True,default="default_alarm_pic.jpg",storage=PrivateMediaStorage())
+    alarm = models.FileField(blank=True, upload_to="alarm/%Y/%m/%d",storage=PrivateMediaStorage())
     description = models.TextField(blank=True)
     meta_description = models.TextField(blank=True)
 
@@ -57,3 +59,11 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return reverse('shop:product_detail',args=[self.id,self.slug])
+
+    def save(self, *args, **kwargs):
+        self.slug = timezone.now().strftime("%d-%H%M%s")+slugify(self.name, allow_unicode=True)
+        try:
+            return super(Product, self).save(*args, **kwargs)
+        except IntegrityError:
+            raise serializers.ValidationError(" 'slug':[  'title 필드가 중복됩니다. 다른 title을 이용해주세요. ' ]")
+

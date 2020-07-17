@@ -20,7 +20,7 @@ class RegisterSerializer(RegisterSerializer):
     email = serializers.EmailField()
     password1 = serializers.CharField(write_only=True)
     password2 = serializers.CharField(write_only=True)
-    profile = serializers.ImageField()
+    profile = serializers.ImageField(allow_empty_file=True, default="default-profile.jpg")
 
     def get_cleaned_data(self):
         add ={'sex': self.validated_data.get("account", '')['sex'],
