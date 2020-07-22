@@ -57,7 +57,7 @@ joblib==0.14.1
 jsonschema==3.2.0
 Keras-Applications==1.0.8
 Keras-Preprocessing==1.1.2
-librosa==0.7.2
+librosa==0.6.3
 llvmlite==0.31.0
 Markdown==3.2.2
 musicnn==0.1.0
@@ -96,7 +96,7 @@ sentry-sdk==0.14.4
 six==1.11.0
 social-auth-app-django==3.4.0
 social-auth-core==3.3.3
-SoundFile==0.10.3.post1
+SoundFile==0.8.0
 sqlparse==0.3.1
 tensorboard==1.14.0
 tensorboard-plugin-wit==1.6.0.post3
