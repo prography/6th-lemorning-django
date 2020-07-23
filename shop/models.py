@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models, IntegrityError
+from django.core.validators import FileExtensionValidator
 from django.urls import reverse
 from rest_framework import serializers
 from taggit.managers import TaggableManager
