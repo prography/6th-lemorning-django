@@ -27,7 +27,6 @@ router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'groups', views.GroupViewSet)
 router.register('account', views.AccountViewSet)
-router.register('shop', views.ProductViewSet)
 router.register('category', views.CategoryViewSet)
 
 urlpatterns = [
