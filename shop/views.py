@@ -1,11 +1,12 @@
 from django.shortcuts import render, get_object_or_404
-from rest_framework import generics
+from rest_framework import generics, viewsets
 from rest_framework import permissions
 from rest_framework import status
+from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser
 
-from restapi.serializers import *
+from .serializers import *
 from .models import *
 from .apps import ShopConfig
 import io
@@ -62,3 +63,30 @@ class WelcomeProduct(generics.ListAPIView):
             'response': super().list(request, *args, **kwargs).data
         }
         return Response(response)
+
+
+class ProductViewSet(viewsets.ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    permission_classes = [permissions.AllowAny]
+
+    @action(detail=True, methods=['get'], )
+    def recommand_category(self, request, pk):
+        ## 추천된 ID의 list여기서 불러오고
+        ## list의 id 값들 다 빼오고 밑에다가 다 넣어야함.
+        qs = self.queryset.filter(pk__in=[1,3,5])
+        serializer = self.get_serializer(qs, many=True)
+        return Response(serializer.data)
+
+
+    @action(detail=False, methods=['get'], )
+    def weekly_list(self, request):
+        qs = self.queryset.order_by('-created')
+        serializer = self.get_serializer(qs, many=True)
+        response = {
+            'status': status.HTTP_200_OK,
+            'message': "Category List",
+            'response': serializer.data
+        }
+        return Response(response)
+        # return Response(serializer.data)
