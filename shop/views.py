@@ -1,3 +1,5 @@
+import json
+
 from django.shortcuts import render, get_object_or_404
 from rest_framework import generics, viewsets
 from rest_framework import permissions
@@ -10,6 +12,7 @@ from .serializers import *
 from .models import *
 from .apps import ShopConfig
 import io
+from itertools import chain
 
 
 def product_in_category(request, category_slug=None):
@@ -40,12 +43,15 @@ class productList(generics.CreateAPIView):
         serializer = self.get_serializer(data=request.data)
         data = request.FILES['alarm']
         k = io.BytesIO(data.file.read())
-        feat, tag = ShopConfig.model.extract_info(k)
+        feat, tag = ShopConfig.model.extract_info(k, mode='both', topN=5)
+        ShopConfig.Engine.set_collection('musicRDB')
         taglist = tag.tolist()
         if serializer.is_valid():
             serializer.validated_data['tags'] = taglist
-            print(serializer.validated_data['tags'])
             serializer.save(user=request.user)
+            id = serializer.data['id']
+            # print(type(id))
+            ShopConfig.Engine.insert_data(id, feat)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -73,8 +79,11 @@ class ProductViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['get'], )
     def recommand_category(self, request, pk):
         ## 추천된 ID의 list여기서 불러오고
+        ShopConfig.Engine.set_collection('musicRDB')
+        li_id, li_distance = ShopConfig.Engine.search_by_key(int(pk), 5)
+        key = list(chain(*li_id))
         ## list의 id 값들 다 빼오고 밑에다가 다 넣어야함.
-        qs = self.queryset.filter(pk__in=[1,3,5])
+        qs = self.queryset.filter(pk__in=key)
         serializer = self.get_serializer(qs, many=True)
         return Response(serializer.data)
 
@@ -89,4 +98,3 @@ class ProductViewSet(viewsets.ModelViewSet):
             'response': serializer.data
         }
         return Response(response)
-        # return Response(serializer.data)
