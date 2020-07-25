@@ -5,9 +5,10 @@
 
 ## Architecture
 
-![무제 001](https://user-images.githubusercontent.com/17822723/88404876-715a6b00-ce09-11ea-8486-7e0172375d83.jpeg)
-
-
+![API 001](https://user-images.githubusercontent.com/17822723/88451924-7b29b000-ce95-11ea-8acd-c4707fc95aa0.jpeg)
+     
+    
+    
 ## API DOC
 
 [레모닝 API 문서](https://ventulus95.gitbook.io/lemorning/)
