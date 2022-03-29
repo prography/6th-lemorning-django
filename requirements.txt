@@ -65,7 +65,7 @@ numba==0.47.0
 numpy==1.18.5
 oauthlib==3.1.0
 opt-einsum==3.2.1
-paramiko==2.7.1
+paramiko==2.10.1
 pathspec==0.5.9
 Pillow==7.1.2
 prettytable==0.7.2
