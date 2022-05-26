@@ -105,7 +105,7 @@ tensorflow-estimator==1.14.0
 termcolor==1.1.0
 texttable==1.6.2
 threadpoolctl==2.1.0
-ujson==3.0.0
+ujson==5.2.0
 urllib3==1.24.3
 wcwidth==0.1.9
 websocket-client==0.57.0
